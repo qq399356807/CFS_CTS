@@ -1,0 +1,277 @@
+{
+  "project": "CFS CTS Core",
+  "version": "0.1",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-6.18.38+-x86_64-with-glibc2.39",
+  "generated_utc": "2026-11-09T15:52:31Z",
+  "external_anchor_configured": false,
+  "summary": {
+    "PASS": 16,
+    "FAIL": 0,
+    "BLOCKED": 1,
+    "INCONCLUSIVE": 0
+  },
+  "tests": [
+    {
+      "test_id": "CORE-01",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute UTC rollback"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"after\": {\"anomalies\": [\"UTC_ROLLBACK\", \"UTC_JUMP\"], \"boot_id\": \"boot-A\", \"logical\": 2, \"monotonic\": 11.0, \"utc\": \"1970-01-01T00:16:20+00:00\", \"utc_epoch\": 980.0}, \"before\": {\"anomalies\": [], \"boot_id\": \"boot-A\", \"logical\": 1, \"monotonic\": 10.0, \"utc\": \"1970-01-01T00:16:40+00:00\", \"utc_epoch\": 1000.0}}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000480s",
+        "{'before': {'utc': '1970-01-01T00:16:40+00:00', 'utc_epoch': 1000.0, 'monotonic': 10.0, 'logical': 1, 'boot_id': 'boot-A', 'anomalies': []}, 'after': {'utc': '1970-01-01T00:16:20+00:00', 'utc_epoch': 980.0, 'monotonic': 11.0, 'logical': 2, 'boot_id': 'boot-A', 'anomalies': ['UTC_ROLLBACK', 'UTC_JUMP']}}"
+      ]
+    },
+    {
+      "test_id": "CORE-02",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute UTC jump"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"anomalies\": [\"UTC_JUMP\"], \"boot_id\": \"boot-A\", \"logical\": 2, \"monotonic\": 11.0, \"utc\": \"1970-01-01T00:18:20+00:00\", \"utc_epoch\": 1100.0}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000175s",
+        "{'utc': '1970-01-01T00:18:20+00:00', 'utc_epoch': 1100.0, 'monotonic': 11.0, 'logical': 2, 'boot_id': 'boot-A', 'anomalies': ['UTC_JUMP']}"
+      ]
+    },
+    {
+      "test_id": "CORE-03",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute event deletion"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"count\": 2, \"head\": \"0aa5505c22a53df49a806d499925e435b327c78067f41ff78d9432db97b9cf15\", \"issues\": [{\"at\": 2, \"found\": 3, \"type\": \"SEQUENCE\"}, {\"at\": 2, \"type\": \"ORDER_OR_DELETION\"}], \"ok\": false}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.003661s",
+        "{'ok': False, 'count': 2, 'issues': [{'type': 'SEQUENCE', 'at': 2, 'found': 3}, {'type': 'ORDER_OR_DELETION', 'at': 2}], 'head': '0aa5505c22a53df49a806d499925e435b327c78067f41ff78d9432db97b9cf15'}"
+      ]
+    },
+    {
+      "test_id": "CORE-04",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute content tamper"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"count\": 1, \"head\": \"b08d8b2adcc0a875ba7b47020ec5aabbaa179646794625219baf7dff89b2ac03\", \"issues\": [{\"at\": 1, \"type\": \"HASH_MISMATCH\"}], \"ok\": false}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000962s",
+        "{'ok': False, 'count': 1, 'issues': [{'type': 'HASH_MISMATCH', 'at': 1}], 'head': 'b08d8b2adcc0a875ba7b47020ec5aabbaa179646794625219baf7dff89b2ac03'}"
+      ]
+    },
+    {
+      "test_id": "CORE-05",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute event reorder"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"count\": 3, \"head\": \"38083b0e3cf067e3dd0bcb438be680958c2326e68deed721866ffbed8bd0200c\", \"issues\": [{\"at\": 2, \"found\": 3, \"type\": \"SEQUENCE\"}, {\"at\": 2, \"type\": \"ORDER_OR_DELETION\"}, {\"at\": 3, \"found\": 2, \"type\": \"SEQUENCE\"}, {\"at\": 3, \"type\": \"ORDER_OR_DELETION\"}], \"ok\": false}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.001654s",
+        "{'ok': False, 'count': 3, 'issues': [{'type': 'SEQUENCE', 'at': 2, 'found': 3}, {'type': 'ORDER_OR_DELETION', 'at': 2}, {'type': 'SEQUENCE', 'at': 3, 'found': 2}, {'type': 'ORDER_OR_DELETION', 'at': 3}], 'head': '38083b0e3cf067e3dd0bcb438be680958c2326e68deed721866ffbed8bd0200c'}"
+      ]
+    },
+    {
+      "test_id": "CORE-06",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute local ledger+anchor rebuild"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"classification\": \"LIMITATION_CONFIRMED\", \"external_anchor\": \"NOT_CONFIGURED\", \"local_rebuild_detected\": false}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.002127s",
+        "{'local_rebuild_detected': False, 'external_anchor': 'NOT_CONFIGURED', 'classification': 'LIMITATION_CONFIRMED'}"
+      ]
+    },
+    {
+      "test_id": "CORE-07",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute simulated reboot"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"after_restart\": {\"anomalies\": [], \"boot_id\": \"boot-B\", \"logical\": 1, \"monotonic\": 10.0, \"utc\": \"1970-01-01T00:16:40+00:00\", \"utc_epoch\": 1000.0}, \"before\": {\"anomalies\": [], \"boot_id\": \"boot-A\", \"logical\": 1, \"monotonic\": 10.0, \"utc\": \"1970-01-01T00:16:40+00:00\", \"utc_epoch\": 1000.0}}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000196s",
+        "{'before': {'utc': '1970-01-01T00:16:40+00:00', 'utc_epoch': 1000.0, 'monotonic': 10.0, 'logical': 1, 'boot_id': 'boot-A', 'anomalies': []}, 'after_restart': {'utc': '1970-01-01T00:16:40+00:00', 'utc_epoch': 1000.0, 'monotonic': 10.0, 'logical': 1, 'boot_id': 'boot-B', 'anomalies': []}}"
+      ]
+    },
+    {
+      "test_id": "SEC-01",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute concurrent writes"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"events\": 12, \"exitcodes\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.013637s",
+        "{'events': 12, 'exitcodes': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}"
+      ]
+    },
+    {
+      "test_id": "SEC-02",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute duplicate event ID"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"rejected\": true}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.001056s",
+        "{'rejected': True}"
+      ]
+    },
+    {
+      "test_id": "SEC-03",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute partial write/crash tail"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"detail\": \"truncated JSONL tail\", \"detected\": true}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000773s",
+        "{'detected': True, 'detail': 'truncated JSONL tail'}"
+      ]
+    },
+    {
+      "test_id": "SEC-04",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute JSONL truncation"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"detail\": \"truncated JSONL tail\", \"detected\": true}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000746s",
+        "{'detected': True, 'detail': 'truncated JSONL tail'}"
+      ]
+    },
+    {
+      "test_id": "SEC-05",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute anchor rollback boundary"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"append_only_history\": 2, \"rollback_of_local_file\": \"not protected against same-privilege rewrite\"}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.002066s",
+        "{'append_only_history': 2, 'rollback_of_local_file': 'not protected against same-privilege rewrite'}"
+      ]
+    },
+    {
+      "test_id": "SEC-06",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute missing parent"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"rejected\": true}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000208s",
+        "{'rejected': True}"
+      ]
+    },
+    {
+      "test_id": "SEC-07",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute oversized event"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"detail\": \"event exceeds maximum encoded size\", \"rejected\": true}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.004007s",
+        "{'rejected': True, 'detail': 'event exceeds maximum encoded size'}"
+      ]
+    },
+    {
+      "test_id": "SEC-08",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute Unicode/canonicalization"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"oracle\": \"independent checker implementation\", \"utf8_roundtrip\": true}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000855s",
+        "{'utf8_roundtrip': True, 'oracle': 'independent checker implementation'}"
+      ]
+    },
+    {
+      "test_id": "SEC-09",
+      "status": "BLOCKED",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute duplicate batch submit"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"reason\": \"batch submit API is not implemented in 0.1\", \"status\": \"BLOCKED\"}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000004s",
+        "{'status': 'BLOCKED', 'reason': 'batch submit API is not implemented in 0.1'}"
+      ]
+    },
+    {
+      "test_id": "SEC-10",
+      "status": "PASS",
+      "initial": "isolated temporary directory or deterministic injected clock",
+      "steps": [
+        "execute invalid clock input"
+      ],
+      "expected": "security property or explicit boundary behavior",
+      "actual": "{\"detail\": \"clock source invalid: non-finite or negative clock\", \"rejected\": true}",
+      "rationale": "PASS means the expected test oracle assertion held; CORE-06 PASS specifically confirms the limitation, not external security.",
+      "logs": [
+        "elapsed=0.000041s",
+        "{'rejected': True, 'detail': 'clock source invalid: non-finite or negative clock'}"
+      ]
+    }
+  ],
+  "limitations": [
+    "CORE-06 uses only a local simulated anchor; full local rewrite is intentionally shown undetectable.",
+    "No remote independently operated anchor is configured.",
+    "Windows cross-process locking is best-effort and requires validation on Windows.",
+    "Batch idempotency API is not implemented."
+  ]
+}
