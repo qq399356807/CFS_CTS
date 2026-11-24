@@ -136,9 +136,9 @@ def bootstrap_metrics(df: pd.DataFrame, rng: np.random.Generator, n_boot: int):
 
 
 def ci_summary(x: np.ndarray, level: float = 0.95) -> dict:
+    """Summarize the point estimate only; bootstrap intervals are added separately."""
     x = np.asarray(x, dtype=float)
-    alpha = (1-level)/2
-    return {"estimate": float(np.nanmean(x)), "ci_low": float(np.nanquantile(x,alpha)), "ci_high": float(np.nanquantile(x,1-alpha)), "level": level}
+    return {"estimate": float(np.nanmean(x)), "level": level}
 
 
 def point_metrics(df: pd.DataFrame):
