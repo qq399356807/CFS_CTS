@@ -1,34 +1,36 @@
 # CFS CTS Core 0.1 — 实测报告
 
-运行环境：Python 3.12.3 / Linux-6.18.38+-x86_64-with-glibc2.39
+运行环境：Python 3.13.5 / Linux-6.18.57-x86_64-with-glibc2.41
 
-汇总：{'PASS': 16, 'FAIL': 0, 'BLOCKED': 1, 'INCONCLUSIVE': 0}
+汇总：{'PASS': 18, 'FAIL': 0, 'BLOCKED': 1, 'INCONCLUSIVE': 0}
 
-> 报告为本项目运行器生成。CORE-06 的 PASS 仅表示“本地同时重建可成功”的安全边界演示，不代表抵御攻击。无外部锚点。
+> 本报告为本地 Python 3.13/Linux 运行结果。CORE-06 的 PASS 仅表示“本地同时重建可成功”的安全边界演示，不代表抵御攻击。无外部锚点。
 
-| ID | 测试 | 状态 | 实际结果摘要 |
+| ID | 测试 | 状态 | 结果 |
 |---|---|---|---|
-| CORE-01 | execute UTC rollback | **PASS** | {"after": {"anomalies": ["UTC_ROLLBACK", "UTC_JUMP"], "boot_id": "boot-A", "logical": 2, "monotonic": 11.0, "utc": "1970-01-01T00:16:20+00:00", "utc_epoch": 980.0}, "before": {"anomalies": [], "boot_id": "boot-A", "logic |
-| CORE-02 | execute UTC jump | **PASS** | {"anomalies": ["UTC_JUMP"], "boot_id": "boot-A", "logical": 2, "monotonic": 11.0, "utc": "1970-01-01T00:18:20+00:00", "utc_epoch": 1100.0} |
-| CORE-03 | execute event deletion | **PASS** | {"count": 2, "head": "0aa5505c22a53df49a806d499925e435b327c78067f41ff78d9432db97b9cf15", "issues": [{"at": 2, "found": 3, "type": "SEQUENCE"}, {"at": 2, "type": "ORDER_OR_DELETION"}], "ok": false} |
-| CORE-04 | execute content tamper | **PASS** | {"count": 1, "head": "b08d8b2adcc0a875ba7b47020ec5aabbaa179646794625219baf7dff89b2ac03", "issues": [{"at": 1, "type": "HASH_MISMATCH"}], "ok": false} |
-| CORE-05 | execute event reorder | **PASS** | {"count": 3, "head": "38083b0e3cf067e3dd0bcb438be680958c2326e68deed721866ffbed8bd0200c", "issues": [{"at": 2, "found": 3, "type": "SEQUENCE"}, {"at": 2, "type": "ORDER_OR_DELETION"}, {"at": 3, "found": 2, "type": "SEQUEN |
-| CORE-06 | execute local ledger+anchor rebuild | **PASS** | {"classification": "LIMITATION_CONFIRMED", "external_anchor": "NOT_CONFIGURED", "local_rebuild_detected": false} |
-| CORE-07 | execute simulated reboot | **PASS** | {"after_restart": {"anomalies": [], "boot_id": "boot-B", "logical": 1, "monotonic": 10.0, "utc": "1970-01-01T00:16:40+00:00", "utc_epoch": 1000.0}, "before": {"anomalies": [], "boot_id": "boot-A", "logical": 1, "monotoni |
-| SEC-01 | execute concurrent writes | **PASS** | {"events": 12, "exitcodes": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]} |
-| SEC-02 | execute duplicate event ID | **PASS** | {"rejected": true} |
-| SEC-03 | execute partial write/crash tail | **PASS** | {"detail": "truncated JSONL tail", "detected": true} |
-| SEC-04 | execute JSONL truncation | **PASS** | {"detail": "truncated JSONL tail", "detected": true} |
-| SEC-05 | execute anchor rollback boundary | **PASS** | {"append_only_history": 2, "rollback_of_local_file": "not protected against same-privilege rewrite"} |
-| SEC-06 | execute missing parent | **PASS** | {"rejected": true} |
-| SEC-07 | execute oversized event | **PASS** | {"detail": "event exceeds maximum encoded size", "rejected": true} |
-| SEC-08 | execute Unicode/canonicalization | **PASS** | {"oracle": "independent checker implementation", "utf8_roundtrip": true} |
-| SEC-09 | execute duplicate batch submit | **BLOCKED** | {"reason": "batch submit API is not implemented in 0.1", "status": "BLOCKED"} |
-| SEC-10 | execute invalid clock input | **PASS** | {"detail": "clock source invalid: non-finite or negative clock", "rejected": true} |
+| CORE-01 | UTC rollback | **PASS** | UTC 回拨与逻辑计数器检测通过 |
+| CORE-02 | UTC jump | **PASS** | UTC 跳变检测通过 |
+| CORE-03 | event deletion | **PASS** | 序号缺口与哈希链断裂检测通过 |
+| CORE-04 | content tamper | **PASS** | 事件内容哈希篡改检测通过 |
+| CORE-05 | event reorder | **PASS** | 事件重排检测通过 |
+| CORE-06 | local ledger+anchor rebuild | **PASS** | 确认边界：同权限攻击者可同时重建本地账本与锚点；无外部锚点 |
+| CORE-07 | simulated reboot | **PASS** | 新会话 boot ID 与逻辑计数器重置检测通过 |
+| SEC-01 | concurrent writes | **PASS** | 12 个并发进程全部成功，12 条事件唯一且哈希链有效 |
+| SEC-02 | duplicate event ID | **PASS** | 重复事件 ID 被拒绝 |
+| SEC-03 | partial write/crash tail | **PASS** | 截断 JSONL 尾部被检测 |
+| SEC-04 | JSONL truncation | **PASS** | JSONL 截断被检测 |
+| SEC-05 | anchor rollback boundary | **PASS** | 连续检查点有效；本地文件整体重写仍不受保护 |
+| SEC-06 | missing parent | **PASS** | 缺失因果父事件被拒绝 |
+| SEC-07 | oversized event | **PASS** | 超大事件被拒绝 |
+| SEC-08 | Unicode/canonicalization | **PASS** | UTF-8 往返与独立规范化校验通过 |
+| SEC-09 | duplicate batch submit | **BLOCKED** | 0.1 尚未实现批量提交 API |
+| SEC-10 | invalid clock input | **PASS** | 非有限时钟输入被拒绝 |
+| SEC-11 | lock failure is fail-closed | **PASS** | 注入锁获取失败后追加被中止，账本未改变 |
+| SEC-12 | intermediate anchor checkpoint tamper | **PASS** | 中间检查点摘要篡改被检测 |
 
 ## 风险/未实现
 
-- CORE-06 uses only a local simulated anchor; full local rewrite is intentionally shown undetectable.
-- No remote independently operated anchor is configured.
-- Windows cross-process locking is best-effort and requires validation on Windows.
-- Batch idempotency API is not implemented.
+- CORE-06 使用本地模拟锚点；同权限攻击者同时重建账本与锚点仍无法被检测。
+- 尚未配置独立管理的远程锚点。
+- 跨平台 CI 已配置；文件锁与 fsync 的保证仍限于实际通过验证的平台和文件系统。
+- 尚未实现批量提交幂等性。
