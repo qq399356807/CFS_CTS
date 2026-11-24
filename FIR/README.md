@@ -15,7 +15,7 @@ Evidence for one category does not automatically establish another.
 - Root `simulated_trials.csv` and `validation_results.json`: deterministic synthetic run.
 - Existing Chinese simulation package and result reports.
 - `fir_incremental_prediction.py`: supplementary A-only versus A+B prediction analysis; exploratory, not part of v1.1.
-- `FIR.zip` and `FIR-simulation-v1.1-validation.zip`: retained unchanged; their internal file inventories remain pending.
+- `FIR.zip` and `FIR-simulation-v1.1-validation.zip`: retained unchanged as legacy snapshots; see [ARCHIVE_INTEGRITY_AUDIT.md](ARCHIVE_INTEGRITY_AUDIT.md) for the verified inventory and source-divergence findings.
 
 ## Research layers
 
