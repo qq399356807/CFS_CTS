@@ -17,11 +17,13 @@ def main():
   except Exception as e:
    out.append(TestResult(ident,'FAIL','isolated temporary directory or deterministic injected clock',[f'execute {name}'],'expected assertion',f'{type(e).__name__}: {e}','exception or assertion means observed behavior did not match test expectation',[traceback.format_exc()]).as_dict())
  report={'project':'CFS CTS Core','version':'0.1','python':sys.version,'platform':platform.platform(),'generated_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'external_anchor_configured':False,'summary':{s:sum(x['status']==s for x in out) for s in ('PASS','FAIL','BLOCKED','INCONCLUSIVE')},'tests':out,'limitations':['CORE-06 uses only a local simulated anchor; full local rewrite is intentionally shown undetectable.','No remote independently operated anchor is configured.','Windows cross-process locking is best-effort and requires validation on Windows.','Batch idempotency API is not implemented.']}
- Path('reports/test_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+ Path('reports/test_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  lines=['# CFS CTS Core 0.1 — 实测报告','',f"运行环境：Python {sys.version.split()[0]} / {platform.platform()}",'',f"汇总：{report['summary']}",'', '> 报告由当前运行器生成。CORE-06 的 PASS 仅表示“本地同时重建可成功”的安全边界演示，不代表抵御攻击。无外部锚点。','','| ID | 测试 | 状态 | 实际结果摘要 |','|---|---|---|---|']
- for x in out: lines.append(f"| {x['test_id']} | {x['steps'][0]} | **{x['status']}** | {x['actual'][:220].replace('|','\\|')} |")
+ for x in out:
+  actual = x['actual'][:220].replace('|','\\|')
+  lines.append(f"| {x['test_id']} | {x['steps'][0]} | **{x['status']}** | {actual} |")
  lines += ['','## 风险/未实现','']+[f'- {v}' for v in report['limitations']]
- Path('reports/test_report.md').write_text('\n'.join(lines)+'\n')
+ Path('reports/test_report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
  print(json.dumps(report['summary'],ensure_ascii=False)); print('Reports: reports/test_report.json and reports/test_report.md')
  return 1 if report['summary']['FAIL'] else 0
 if __name__=='__main__': raise SystemExit(main())
