@@ -1,4 +1,4 @@
-# FIR-3 Analysis Plan — Supplementary and Future Work
+# FIR Analysis Plan — Supplementary and Future Work
 
 This plan does not modify frozen v1.1.
 
@@ -42,7 +42,7 @@ A flexible latent model can encode the relation variable. “Not reducible” mu
 
 ## D. Release gates
 
-Do not label FIR-3 empirically validated until real intervention implementation, raw data, exclusions, analysis scripts, confirmatory results, replication scope, and alternative shared-module explanations are documented.
+Do not label FIR empirically validated until real intervention implementation, raw data, exclusions, analysis scripts, confirmatory results, replication scope, and alternative shared-module explanations are documented.
 
 
 ## E. Cross-environment stability simulation (supplementary)

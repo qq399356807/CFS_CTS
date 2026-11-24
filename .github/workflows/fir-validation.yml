@@ -1,0 +1,42 @@
+name: FIR validation
+
+on:
+  push:
+    branches: [main, "fir/**"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install FIR dependencies
+        run: python -m pip install --upgrade pip numpy pandas
+      - name: Compile FIR sources
+        run: python -m py_compile simulate_fir.py fir_incremental_prediction.py fir_cross_environment.py fir_cross_environment_operating_check.py
+      - name: Run FIR synthetic validation
+        run: python simulate_fir.py --outdir artifacts/fir --seed 20261124 --bootstrap 10000
+      - name: Run supplementary nested prediction diagnostic
+        run: python fir_incremental_prediction.py --input artifacts/fir/simulated_trials.csv --outdir artifacts/fir/incremental --seed 20261124 --bootstrap 10000
+      - name: Run cross-environment stability simulation
+        run: python fir_cross_environment.py --outdir artifacts/fir/cross_environment --seed 20261125 --blocks 60 --repeats-per-cell 10 --bootstrap 5000 --gamma-margin 0.10
+      - name: Run cross-environment Monte Carlo diagnostic
+        run: python fir_cross_environment_operating_check.py --outdir artifacts/fir/cross_environment --seed 30000 --replicates 50 --bootstrap 500 --blocks 60 --repeats-per-cell 10 --gamma-margin 0.10
+      - name: Upload FIR validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fir-validation-${{ github.run_number }}
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 90

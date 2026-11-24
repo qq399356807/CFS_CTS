@@ -1,4 +1,4 @@
-# FIR-3 Archive Changelog
+# FIR Archive Changelog
 
 ## 2026-11-24 — Repository management baseline
 
@@ -18,4 +18,4 @@
 
 ## Repository separation
 
-- CFS-CTS Core 0.1 was extracted to the standalone [CFS-CTS repository](https://github.com/qq399356807/CFS-CTS). FIR-3 protocol definitions and frozen v1.1 remain unchanged.
+- CFS-CTS Core 0.1 was extracted to the standalone [CFS-CTS repository](https://github.com/qq399356807/CFS-CTS). FIR protocol definitions and frozen v1.1 remain unchanged.

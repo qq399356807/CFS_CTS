@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exploratory FIR-3 nested predictive diagnostic; not a v1.1 endpoint."""
+"""Exploratory FIR nested predictive diagnostic; not a v1.1 endpoint."""
 from __future__ import annotations
 import argparse
 import json
@@ -117,7 +117,7 @@ def main():
     outdir.mkdir(parents=True, exist_ok=True)
     (outdir / "incremental_prediction.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     lines = [
-        "# FIR-3 Supplementary Nested Prediction Diagnostic", "",
+        "# FIR Supplementary Nested Prediction Diagnostic", "",
         "> Synthetic-data exploratory analysis only. Does not amend frozen v1.1.", "",
         "| Model | A increment over history | B increment given A | C increment given AB |",
         "|---|---:|---:|---:|",

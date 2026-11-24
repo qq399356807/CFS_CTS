@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FIR-3 cross-environment response-kernel stability simulation.
+"""FIR cross-environment response-kernel stability simulation.
 
 Synthetic methodological validation only. Compares a shared target kernel,
 an environment-drifting target kernel, and a shared no-interaction control.
@@ -188,7 +188,7 @@ def main() -> None:
         )
     (outdir / "cross_environment_results.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
     lines = [
-        "# FIR-3 Cross-Environment Stability — Synthetic Validation", "",
+        "# FIR Cross-Environment Stability — Synthetic Validation", "",
         "> Synthetic methodological validation only. Not empirical evidence and does not modify frozen v1.1.", "",
         f"- Environments: {', '.join(ENVIRONMENTS)}",
         f"- Blocks per environment and mechanism: {args.blocks}",
@@ -216,7 +216,7 @@ def main() -> None:
         "",
         "The simulation assumes randomized A,B, all four cells in every environment, common outcome measurement, and independent blocks. It does not validate real interventions, object sampling, transportability, or implementation independence.",
         "",
-        "This supplementary margin, environment schedule, and sample size do not amend FIR-3 v1.1 and require separate justification before empirical use.", "",
+        "This supplementary margin, environment schedule, and sample size do not amend FIR v1.1 and require separate justification before empirical use.", "",
     ]
     (outdir / "cross_environment_report.md").write_text("\n".join(lines), encoding="utf-8")
     print(f"Wrote {outdir / 'cross_environment_trials.csv'}")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FIR-3 minimal simulation validation package (v1.1 protocol implementation).
+"""FIR minimal simulation validation package (v1.1 protocol implementation).
 
 Generates one eta=0.10 environment for the target XOR model and the no-interaction
 negative control. Uses complete randomized blocks as the bootstrap resampling unit.
@@ -230,7 +230,7 @@ def main():
 
 
 def write_markdown(r:dict,path:Path):
-    lines=["# FIR-3 仿真验证结果", "", "> **重要：**以下全部是按指定模型生成的合成数据，只用于检查程序与统计流程，不是实证结果。", "", "## 配置", "", f"- 随机种子：`{r['settings']['seed']}`；噪声率：`{r['settings']['eta']}`。", f"- 每模型区块数：{r['settings']['blocks_per_model']}；每区块每格重复：{r['settings']['repeats_per_cell_per_block']}；每模型试次数：{r['settings']['trials_per_model']}。", f"- 区块 bootstrap：{r['settings']['bootstrap_replicates']:,} 次；留出区块：{r['settings']['holdout_blocks']}。", "", "## 理论值与模拟估计", "", "| 模型 | 四格概率 p00,p01,p10,p11 | ΔA(0), ΔA(1) | ΔB(0), ΔB(1) | Ψ 理论 / 估计 | 互信息理论 / 估计 (bit) |", "|---|---|---|---|---|---|"]
+    lines=["# FIR 仿真验证结果", "", "> **重要：**以下全部是按指定模型生成的合成数据，只用于检查程序与统计流程，不是实证结果。", "", "## 配置", "", f"- 随机种子：`{r['settings']['seed']}`；噪声率：`{r['settings']['eta']}`。", f"- 每模型区块数：{r['settings']['blocks_per_model']}；每区块每格重复：{r['settings']['repeats_per_cell_per_block']}；每模型试次数：{r['settings']['trials_per_model']}。", f"- 区块 bootstrap：{r['settings']['bootstrap_replicates']:,} 次；留出区块：{r['settings']['holdout_blocks']}。", "", "## 理论值与模拟估计", "", "| 模型 | 四格概率 p00,p01,p10,p11 | ΔA(0), ΔA(1) | ΔB(0), ΔB(1) | Ψ 理论 / 估计 | 互信息理论 / 估计 (bit) |", "|---|---|---|---|---|---|"]
     for model in MODELS:
         th=r['theoretical'][model]; s=r['simulated'][model]; st=s['statistics']
         da=[st['delta_A_0']['estimate'],st['delta_A_1']['estimate']]

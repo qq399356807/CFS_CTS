@@ -1,4 +1,4 @@
-# FIR-3 Cross-Environment — Synthetic Pilot Record
+# FIR Cross-Environment — Synthetic Pilot Record
 
 **Evidence class:** synthetic methodological validation only. No empirical data were used.
 
