@@ -23,10 +23,20 @@ class IntegrityChecker:
                 if p not in ids-{e.get('event_id')}: issues.append({'type':'MISSING_OR_FORWARD_PARENT','at':idx,'parent':p})
         if anchor is not None:
             latest=anchor.latest()
+            hist=getattr(anchor,'history',lambda:[])()
             if latest:
-                if latest.get('ledger_seq')!=len(events) or latest.get('head')!=(events[-1].get('hash') if events else GENESIS): issues.append({'type':'ANCHOR_MISMATCH'})
                 from .audit_anchor import checkpoint_digest
-                if latest.get('checkpoint_digest')!=checkpoint_digest(latest.get('ledger_version'),latest.get('ledger_seq'),latest.get('head')): issues.append({'type':'ANCHOR_DIGEST_MISMATCH'})
-                hist=getattr(anchor,'history',lambda:[])()
-                if any(hist[i].get('anchor_seq') != hist[i-1].get('anchor_seq',0)+1 for i in range(1,len(hist))): issues.append({'type':'ANCHOR_ROLLBACK_OR_GAP'})
+                previous_ledger_seq=-1
+                for i,cp in enumerate(hist,1):
+                    if cp.get('anchor_seq')!=i:
+                        issues.append({'type':'ANCHOR_SEQUENCE','at':i})
+                    expected_cp=checkpoint_digest(cp.get('ledger_version'),cp.get('ledger_seq'),cp.get('head'))
+                    if cp.get('checkpoint_digest')!=expected_cp:
+                        issues.append({'type':'ANCHOR_DIGEST_MISMATCH','at':i})
+                    ledger_seq=cp.get('ledger_seq')
+                    if not isinstance(ledger_seq,int) or ledger_seq<previous_ledger_seq:
+                        issues.append({'type':'ANCHOR_LEDGER_ROLLBACK','at':i})
+                    else:
+                        previous_ledger_seq=ledger_seq
+                if latest.get('ledger_seq')!=len(events) or latest.get('head')!=(events[-1].get('hash') if events else GENESIS): issues.append({'type':'ANCHOR_MISMATCH'})
         return {'ok':not issues,'count':len(events),'issues':issues,'head':prev}
