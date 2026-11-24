@@ -1,4 +1,4 @@
-"""Append-only JSONL ledger. Per-process/thread locking; cross-process locking is platform best-effort."""
+"""Append-only JSONL ledger. Cross-process locking is fail-closed."""
 from __future__ import annotations
 import hashlib, json, os, threading, uuid
 from pathlib import Path
@@ -23,16 +23,20 @@ class EventLedger:
     def append(self,event_id=None,payload=None,parents=None,related=None):
         with self.lock:
             self.path.parent.mkdir(parents=True,exist_ok=True)
-            # Sidecar lock serializes the full read/derive/append transaction across cooperating processes.
+            # A lock failure must abort the write. Silently continuing would permit sequence/hash-chain races.
             with open(str(self.path)+'.lock','a+b') as lockfile:
                 _lock(lockfile)
                 try:
                     rows=self._read(); ids={r['event_id'] for r in rows}; seq=len(rows)+1
                     eid=str(event_id or uuid.uuid4())
+                    if not eid.strip(): raise ValueError('event_id must not be empty')
                     if eid in ids: raise ValueError('duplicate event_id')
                     check=self.causal.validate(eid,parents or [],ids,seq,{r['event_id']:r['seq'] for r in rows})
                     if not check['ok']: raise ValueError(check)
-                    ts=self.timebase.sample(); core={'version':self.VERSION,'seq':seq,'event_id':eid,'timestamp':ts,'payload':payload or {},'parents':list(parents or []),'related':list(related or []),'prev_hash':rows[-1]['hash'] if rows else GENESIS}
+                    ts=self.timebase.sample()
+                    event_payload={} if payload is None else payload
+                    if not isinstance(event_payload,dict): raise TypeError('payload must be a JSON object')
+                    core={'version':self.VERSION,'seq':seq,'event_id':eid,'timestamp':ts,'payload':event_payload,'parents':list(parents or []),'related':list(related or []),'prev_hash':rows[-1]['hash'] if rows else GENESIS}
                     encoded=canonical_bytes(core)
                     if len(encoded)>self.MAX_EVENT_BYTES: raise ValueError('event exceeds maximum encoded size')
                     record={**core,'hash':self._digest(core)}; data=canonical_bytes(record)+b'\n'
@@ -52,16 +56,28 @@ class EventLedger:
         cp['checkpoint_digest']=checkpoint_digest(self.VERSION,seq,head)
         return anchor.commit(cp)
 def _lock(f):
+    """Acquire an exclusive advisory lock or fail closed; never degrade to an unlocked append."""
     try:
         if os.name=='nt':
-            import msvcrt; f.seek(0); msvcrt.locking(f.fileno(),msvcrt.LK_LOCK,1)
+            import msvcrt
+            f.seek(0,os.SEEK_END)
+            if f.tell()==0:
+                f.write(b'\0'); f.flush()
+            f.seek(0)
+            msvcrt.locking(f.fileno(),msvcrt.LK_LOCK,1)
         else:
-            import fcntl; fcntl.flock(f.fileno(),fcntl.LOCK_EX)
-    except (ImportError,OSError): pass
+            import fcntl
+            fcntl.flock(f.fileno(),fcntl.LOCK_EX)
+    except Exception as exc:
+        raise RuntimeError(f'cannot acquire ledger lock; append aborted: {exc}') from exc
 def _unlock(f):
     try:
         if os.name=='nt':
-            import msvcrt; f.seek(0); msvcrt.locking(f.fileno(),msvcrt.LK_UNLCK,1)
+            import msvcrt
+            f.seek(0)
+            msvcrt.locking(f.fileno(),msvcrt.LK_UNLCK,1)
         else:
-            import fcntl; fcntl.flock(f.fileno(),fcntl.LOCK_UN)
-    except (ImportError,OSError): pass
+            import fcntl
+            fcntl.flock(f.fileno(),fcntl.LOCK_UN)
+    except Exception as exc:
+        raise RuntimeError(f'cannot release ledger lock cleanly: {exc}') from exc
