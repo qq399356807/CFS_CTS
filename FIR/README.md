@@ -33,3 +33,9 @@ The minimum three-relation v1.1 protocol remains frozen. This archive may docume
 ## Evidence status
 
 All current FIR trial rows and result summaries are synthetic. No real-world empirical dataset is registered here. See [RESEARCH_STATUS.md](RESEARCH_STATUS.md), [ANALYSIS_PLAN.md](ANALYSIS_PLAN.md), and [CHANGELOG.md](CHANGELOG.md).
+
+## Real-experiment readiness
+
+[REAL_EXPERIMENT_READINESS.md](REAL_EXPERIMENT_READINESS.md) provides a gated planning template for operationalizing interventions, randomization, sample-size justification, dependence-aware analysis, cross-environment comparisons, competing implementation models, ethics, and data integrity.
+
+It is not a preregistration or authorization to collect data. Unresolved study-specific choices remain marked TBD. Do not begin confirmatory data collection until the applicable gates are completed, reviewed, and frozen. This planning document does not amend v1.1.
