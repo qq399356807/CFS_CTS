@@ -24,4 +24,4 @@ def main():
  Path('reports/test_report.md').write_text('\n'.join(lines)+'\n')
  print(json.dumps(report['summary'],ensure_ascii=False)); print('Reports: reports/test_report.json and reports/test_report.md')
  return 1 if report['summary']['FAIL'] else 0
-if __name__=='__main__': raise SystemExit(main)
+if __name__=='__main__': raise SystemExit(main())
