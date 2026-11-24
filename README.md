@@ -8,6 +8,7 @@ This repository is dedicated to **FIR**, a research program studying relational 
 |---|---|
 | [FIR/](FIR/README.md) | Research index, status, protocol boundaries, analysis plan, and cross-environment protocol |
 | [FIR/REAL_EXPERIMENT_READINESS.md](FIR/REAL_EXPERIMENT_READINESS.md) | Gated planning template for real-world experimental readiness; not a preregistration |
+| [FIR/ARCHIVE_INTEGRITY_AUDIT.md](FIR/ARCHIVE_INTEGRITY_AUDIT.md) | Verified inventory and integrity findings for legacy ZIP archives |
 | [simulate_fir.py](simulate_fir.py) | Synthetic target and negative-control simulation |
 | [fir_incremental_prediction.py](fir_incremental_prediction.py) | Supplementary nested prediction diagnostic |
 | [fir_cross_environment.py](fir_cross_environment.py) | Cross-environment stability simulation |
