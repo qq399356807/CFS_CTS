@@ -15,3 +15,7 @@
 - Added stable target, drifting target, and stable additive negative-control scenarios.
 - Added a Monte Carlo classification diagnostic and synthetic pilot record.
 - These materials are supplementary methodological validation, not empirical evidence and not changes to frozen v1.1.
+
+## Repository separation
+
+- CFS-CTS Core 0.1 was extracted to the standalone [CFS-CTS repository](https://github.com/qq399356807/CFS-CTS). FIR-3 protocol definitions and frozen v1.1 remain unchanged.
