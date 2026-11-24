@@ -42,3 +42,14 @@ A same-privilege attacker can replace both ledger and local anchor, or truncate 
 ## Layout
 
 `src/` implementation; `tests/` attack/regression cases; `reports/` generated actual run results. Test fixtures and the tested classes are distinct; integrity verification has a separately written canonicalization/hash path. This reduces common-mode risk but is not formal verification.
+
+## Development checks
+
+GitHub Actions runs the adversarial suite on Python 3.11–3.13 across Linux, Windows, and macOS. Local checks:
+
+```bash
+python -m compileall -q src tests
+python run_tests.py
+```
+
+See [SECURITY_MODEL.md](SECURITY_MODEL.md) for threat assumptions and production release gates, and [CHANGELOG.md](CHANGELOG.md) for hardening history.
