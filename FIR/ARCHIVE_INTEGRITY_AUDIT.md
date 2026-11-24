@@ -35,7 +35,7 @@ CRC-32 values below are taken from ZIP central-directory records and compared wi
 | `simulated_trials.csv` | 116,862 | `4a146edf` | `4a146edf` | Match |
 | `validation_results.json` | 5,842 | `be4e6df8` | `be4e6df8` | Match |
 
-The standalone validation ZIP contains seven entries: three directory entries and four files (Python source, README, CSV, JSON, and validation report; the directory entries account for the remaining two entries). The source and Markdown mismatches above also apply to the standalone ZIP's corresponding payloads.
+The standalone validation ZIP contains seven entries: two directory entries and five files (Python source, README, CSV, JSON, and validation report). The source and Markdown mismatches above also apply to the standalone ZIP's corresponding payloads.
 
 ## Interpretation and maintenance
 
