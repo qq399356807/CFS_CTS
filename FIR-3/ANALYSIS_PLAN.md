@@ -43,3 +43,8 @@ A flexible latent model can encode the relation variable. “Not reducible” mu
 ## D. Release gates
 
 Do not label FIR-3 empirically validated until real intervention implementation, raw data, exclusions, analysis scripts, confirmatory results, replication scope, and alternative shared-module explanations are documented.
+
+
+## E. Cross-environment stability simulation (supplementary)
+
+See [CROSS_ENVIRONMENT_PROTOCOL.md](CROSS_ENVIRONMENT_PROTOCOL.md) and [CROSS_ENVIRONMENT_RESULTS.md](CROSS_ENVIRONMENT_RESULTS.md). The executable module estimates maximum pairwise response-kernel total-variation discrepancy Gamma and mean discrepancy Omega across four environments, using complete randomized blocks for bootstrap resampling. It includes stable target, drifting target, and stable additive negative-control scenarios. The illustrative Gamma margin is 0.10 and is not an empirically justified threshold. This work does not amend v1.1.

@@ -36,4 +36,4 @@ GitHub Actions runs Python syntax checks, FIR-3 synthetic validation, the supple
 4. Propose changes on a dedicated branch and review before merging to `main`.
 5. CI validation is not a public production deployment.
 
-See [FIR-3 research status](FIR-3/RESEARCH_STATUS.md) and [protocol boundary](FIR-3/PROTOCOL_BOUNDARY.md).
+See [FIR-3 research status](FIR-3/RESEARCH_STATUS.md), [protocol boundary](FIR-3/PROTOCOL_BOUNDARY.md), and [cross-environment design](FIR-3/CROSS_ENVIRONMENT_PROTOCOL.md).
