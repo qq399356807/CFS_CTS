@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from fir3_cross_environment import (
+from fir_cross_environment import (
     MECHANISMS, generate_data, analyze_mechanism,
     DEFAULT_BLOCKS, DEFAULT_REPEATS, GAMMA_MARGIN,
 )

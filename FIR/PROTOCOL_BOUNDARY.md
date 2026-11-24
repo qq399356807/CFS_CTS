@@ -1,4 +1,4 @@
-# FIR-3 v1.1 — Frozen Protocol Boundary
+# FIR v1.1 — Frozen Protocol Boundary
 
 This document records the operational boundary used to manage the existing v1.1 minimum three-relation protocol. It is a governance summary, not a replacement for the authoritative frozen protocol. If the original signed / dated protocol differs, the original controls.
 

@@ -1,4 +1,4 @@
-# FIR-3 Cross-Environment Stability — Supplementary Design
+# FIR Cross-Environment Stability — Supplementary Design
 
 **Status:** methodological simulation protocol, not an amendment to frozen v1.1 and not an empirical preregistration.
 

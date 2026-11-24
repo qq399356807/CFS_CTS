@@ -1,4 +1,4 @@
-# FIR-3 Research Status and Evidence Register
+# FIR Research Status and Evidence Register
 
 Last updated: 2026-11-24
 
@@ -8,7 +8,7 @@ Last updated: 2026-11-24
 - Theoretical four-cell probabilities, simple effects, probability-scale interaction Ψ, and mutual-information values asserted by code.
 - Deterministic synthetic dataset and machine-readable results checked in.
 - Complete randomized-block bootstrap intervals and held-out prediction comparison implemented.
-- Research archive and CI workflow being established on `fir3/research-archive-ci`.
+- Research archive and CI workflow being established on the research-archive CI branch.
 
 ## Current synthetic result (not empirical)
 

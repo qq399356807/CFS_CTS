@@ -1,6 +1,6 @@
-# FIR-3 Research Archive
+# FIR Research Archive
 
-FIR-3 is an operational research framework for studying relational causal control. It separates four claims:
+FIR is an operational research framework for studying relational causal control. It separates four claims:
 
 - `C_R`: controlled causal response;
 - `X_R`: non-additive interaction;
@@ -11,11 +11,11 @@ Evidence for one category does not automatically establish another.
 
 ## Existing assets
 
-- Root `simulate_fir3.py`: target XOR-plus-noise model and no-interaction negative control.
+- Root `simulate_fir.py`: target XOR-plus-noise model and no-interaction negative control.
 - Root `simulated_trials.csv` and `validation_results.json`: deterministic synthetic run.
 - Existing Chinese simulation package and result reports.
-- `fir3_incremental_prediction.py`: supplementary A-only versus A+B prediction analysis; exploratory, not part of v1.1.
-- `FIR-3.zip` and `FIR-3-simulation-v1.1-validation.zip`: retained unchanged; their internal file inventories remain pending.
+- `fir_incremental_prediction.py`: supplementary A-only versus A+B prediction analysis; exploratory, not part of v1.1.
+- `FIR.zip` and `FIR-simulation-v1.1-validation.zip`: retained unchanged; their internal file inventories remain pending.
 
 ## Research layers
 
@@ -32,4 +32,4 @@ The minimum three-relation v1.1 protocol remains frozen. This archive may docume
 
 ## Evidence status
 
-All current FIR-3 trial rows and result summaries are synthetic. No real-world empirical dataset is registered here. See [RESEARCH_STATUS.md](RESEARCH_STATUS.md), [ANALYSIS_PLAN.md](ANALYSIS_PLAN.md), and [CHANGELOG.md](CHANGELOG.md).
+All current FIR trial rows and result summaries are synthetic. No real-world empirical dataset is registered here. See [RESEARCH_STATUS.md](RESEARCH_STATUS.md), [ANALYSIS_PLAN.md](ANALYSIS_PLAN.md), and [CHANGELOG.md](CHANGELOG.md).

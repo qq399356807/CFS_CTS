@@ -1,10 +1,10 @@
-# FIR-3 仿真验证包
+# FIR 仿真验证包
 
-此目录实现 FIR-3 最小三关系模型与无交互负对照的可重复合成验证。**所有生成数据均为模拟数据，不是实证结果。**本包按 v1.1 冻结稿的目标模型、负对照、η=0.10 与 10,000 次区块 bootstrap 运行；具体区块与留出划分是执行准备细则，不回写冻结协议。
+此目录实现 FIR 最小三关系模型与无交互负对照的可重复合成验证。**所有生成数据均为模拟数据，不是实证结果。**本包按 v1.1 冻结稿的目标模型、负对照、η=0.10 与 10,000 次区块 bootstrap 运行；具体区块与留出划分是执行准备细则，不回写冻结协议。
 
 ## 文件
 
-- `simulate_fir3.py`：仿真生成、理论值断言、区块 bootstrap、等效性门槛与留出预测核验。
+- `simulate_fir.py`：仿真生成、理论值断言、区块 bootstrap、等效性门槛与留出预测核验。
 - `outputs/simulated_trials.csv`：逐试次合成数据。
 - `outputs/validation_results.json`：机器可读理论值与估计结果。
 - `outputs/validation_report.md`：可读结果报告。
@@ -16,7 +16,7 @@
 从本目录运行：
 
 ```bash
-python3 simulate_fir3.py --outdir outputs --seed 20261124 --bootstrap 10000
+python3 simulate_fir.py --outdir outputs --seed 20261124 --bootstrap 10000
 ```
 
 预注册配置为 40 个区块／模型、每区块每个输入格 10 次，即 1,600 个试次／模型；四格在每个区块内各占 10 次。默认随机种子固定，便于逐字复现。若修改种子、噪声率、区块数或 bootstrap 次数，须把运行标记为偏离默认配置；不应将该改动伪装成冻结协议内容。
