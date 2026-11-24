@@ -1,0 +1,46 @@
+name: CFS-CTS Core validation
+on:
+  push:
+    branches: [main, "cfscts/**"]
+    paths:
+      - "CFS_CTS_Core_0_1/**"
+      - ".github/workflows/cfs-cts-core.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "CFS_CTS_Core_0_1/**"
+      - ".github/workflows/cfs-cts-core.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.11", "3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: CFS_CTS_Core_0_1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Compile sources
+        run: python -m compileall -q src tests
+      - name: Run adversarial test suite
+        run: python run_tests.py
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfs-cts-report-${{ matrix.os }}-py${{ matrix.python }}
+          path: |
+            CFS_CTS_Core_0_1/reports/test_report.json
+            CFS_CTS_Core_0_1/reports/test_report.md
+          if-no-files-found: warn
+          retention-days: 30
