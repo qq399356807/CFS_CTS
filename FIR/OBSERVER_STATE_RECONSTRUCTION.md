@@ -165,3 +165,50 @@ The strongest defensible reconstruction is that FIR's original ambition was not 
 The current repository contains a later, narrower relational-causal simulation program. It provides useful formal and experimental discipline, but it does not yet implement the original observer-state theory.
 
 The next step is therefore conceptual and mathematical reconstruction, not changing v1.1 code or claiming that the original thesis has already been demonstrated.
+
+
+## 11. Literature check: observer, finitude, and infinity
+
+A targeted literature search finds genuine antecedents for the problem FIR is trying to address. It does **not** establish that the exact FIR term “third state / observer state” is already a standard or established theory.
+
+### 11.1 Peter Cariani (2012): *Infinity and the Observer: Radical Constructivism and the Foundations of Mathematics*
+
+Published in *Constructivist Foundations* 7(2), 116–125. The article explicitly connects infinity with limited observers and asks what mathematical entities can count as accessible to verification. Its abstract argues for distinguishing heuristic use of infinity from the realm of verification, testing, and proof, and grounds mathematical foundations in intersubjectively verifiable operations of limited observers.
+
+**Relevance to FIR:** This is the closest direct thematic match located so far: infinity, observer limitations, and verifiability are treated together. It supports the intellectual seriousness of asking how a bounded observer can justify claims involving infinity.
+
+**Important difference:** Cariani's radical-constructivist position is not the same as FIR's proposed human “third state.” The article does not, on the evidence reviewed, establish that the observer is an ontologically distinct third state connecting finite and infinite. It also advances a particular philosophical position that FIR should assess critically rather than adopt wholesale.
+
+### 11.2 Bertrand Russell (1919): *Introduction to Mathematical Philosophy*
+
+Russell discusses the epistemic limits of finite sensory experience when considering whether the world contains finitely or infinitely many particulars. The relevant discussion illustrates that finite experience may fail to settle the global finite/infinite status of the world.
+
+**Relevance to FIR:** This closely matches the motivating difficulty described by the project owner: an observer's finite evidence may not decide whether the target reality is finite or infinite.
+
+**Important difference:** This is an analysis of the limits of empirical inference, not a formulation of the human observer as a third state.
+
+### 11.3 Stanford Encyclopedia of Philosophy: “Infinity”
+
+The entry surveys potential and actual infinity, finitism, formalism, and the role of finite reasoning in theories that quantify over infinite objects. It confirms that “infinite” is not a single undifferentiated claim: the meaning depends on the mathematical or philosophical framework.
+
+**Relevance to FIR:** FIR must specify which infinity is at issue and which notion of proof or verification is allowed. Without that, the finite/infinite propositions are underspecified.
+
+### 11.4 Observer formalisms in perception and science
+
+Bennett, Hoffman, and Prakash, in *Perception and Computation*, propose a formal “observer” as a foundation for perception and relate observers to Turing machines. Work on the sciences of observation also distinguishes passive observers from observers who actively choose measurement arrangements.
+
+**Relevance to FIR:** These sources show that “observer” can be formalized as more than an informal human spectator. They provide possible tools for defining observation, access, and measurement.
+
+**Important difference:** They do not establish FIR's finite/infinite thesis or its third-state claim.
+
+### 11.5 Literature assessment
+
+The literature check supports the following graded conclusion:
+
+- **Strong thematic precedent:** the relationship between limited observers, finite evidence, and claims about infinity has been explicitly discussed.
+- **Methodological precedent:** observers can be modeled formally, and the observer's access and measurement choices can matter.
+- **Not established by this search:** a recognized theory in which the human observer is specifically a “third state” whose role is to prove both the finite and the infinite.
+- **Potential FIR contribution:** a precise account of the observer as a distinct epistemic/relational state, together with proof conditions showing what finite observers can establish about finite and infinite targets—and where the limits lie.
+
+This is a preliminary literature map, not an exhaustive systematic review and not a novelty claim. A formal novelty assessment would require broader searches across philosophy of mathematics, epistemology, foundations of mathematics, computability, philosophy of physics, and theories of observation.
+
